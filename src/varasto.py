@@ -2,9 +2,6 @@ class Varasto:
     def __init__(self, tilavuus, alku_saldo = 0):
         self.tilavuus = max(tilavuus, 0.0)
 
-
-        #tämän rivin on tarkoitus olla pitkä, jotta pylint testit eivät mene läpi ja voin kokeilla github actionsin toimintaa
-
         self.saldo = min(max(alku_saldo, 0.0), self.tilavuus)
 
     def paljonko_mahtuu(self):
