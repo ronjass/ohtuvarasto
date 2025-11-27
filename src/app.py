@@ -18,7 +18,8 @@ class WarehouseManager:
         warehouse_id = self.get_next_id()
         self.warehouses[warehouse_id] = {
             'name': name,
-            'varasto': Varasto(capacity, initial)
+            'varasto': Varasto(capacity, initial),
+            'stored_items': []
         }
         return warehouse_id
 
@@ -69,12 +70,21 @@ def edit_warehouse(warehouse_id):
                            warehouse=warehouse)
 
 
+def do_add_content(warehouse_id):
+    amount = parse_float(request.form.get('amount', 0))
+    item_name = request.form.get('item_name', '').strip()
+    if amount <= 0:
+        return
+    warehouse = manager.warehouses[warehouse_id]
+    warehouse['varasto'].lisaa_varastoon(amount)
+    if item_name:
+        warehouse['stored_items'].append({'name': item_name, 'amount': amount})
+
+
 @app.route('/add/<int:warehouse_id>', methods=['POST'])
 def add_content(warehouse_id):
     if warehouse_id in manager.warehouses:
-        amount = parse_float(request.form.get('amount', 0))
-        if amount > 0:
-            manager.warehouses[warehouse_id]['varasto'].lisaa_varastoon(amount)
+        do_add_content(warehouse_id)
     return redirect(url_for('index'))
 
 
