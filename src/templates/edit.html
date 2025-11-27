@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Warehouse{% endblock %}
+
+{% block content %}
+<h1>Edit Warehouse</h1>
+
+<div class="warehouse">
+    <h3>Current: {{ warehouse.name }}</h3>
+    <div class="warehouse-info">
+        <p>
+            <strong>Balance:</strong> {{ warehouse.varasto.saldo }}
+            / {{ warehouse.varasto.tilavuus }}
+        </p>
+        <p>
+            <strong>Free space:</strong>
+            {{ warehouse.varasto.paljonko_mahtuu() }}
+        </p>
+    </div>
+</div>
+
+<form method="post">
+    <div style="margin-bottom: 15px;">
+        <label for="name"><strong>New Name:</strong></label><br>
+        <input type="text" id="name" name="name"
+               value="{{ warehouse.name }}" required
+               style="width: 100%; max-width: 300px; margin-top: 5px;">
+    </div>
+    <button type="submit" class="btn btn-success">Save Changes</button>
+    <a href="{{ url_for('index') }}" class="btn btn-primary">Cancel</a>
+</form>
+{% endblock %}
