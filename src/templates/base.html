@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Warehouse Manager{% endblock %}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff0f5;
+        }
+        h1, h2 {
+            color: #d63384;
+        }
+        .warehouse {
+            background: white;
+            border: 2px solid #f8bbd9;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(214, 51, 132, 0.1);
+        }
+        .warehouse h3 {
+            margin-top: 0;
+            color: #e91e8c;
+        }
+        .warehouse-info {
+            color: #8b5a7a;
+            margin-bottom: 10px;
+        }
+        .actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .actions form {
+            display: flex;
+            gap: 5px;
+            align-items: center;
+        }
+        input[type="text"], input[type="number"] {
+            padding: 8px;
+            border: 2px solid #f8bbd9;
+            border-radius: 8px;
+        }
+        input[type="text"]:focus, input[type="number"]:focus {
+            outline: none;
+            border-color: #e91e8c;
+        }
+        button, .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-primary {
+            background-color: #e91e8c;
+            color: white;
+        }
+        .btn-success {
+            background-color: #ff69b4;
+            color: white;
+        }
+        .btn-warning {
+            background-color: #ffb6c1;
+            color: #8b5a7a;
+        }
+        .btn-danger {
+            background-color: #dc3545;
+            color: white;
+        }
+        .btn:hover, button:hover {
+            opacity: 0.85;
+            transform: scale(1.02);
+        }
+        .progress-bar {
+            background-color: #fce4ec;
+            border-radius: 8px;
+            height: 20px;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+        .progress-fill {
+            background-color: #ff69b4;
+            height: 100%;
+            transition: width 0.3s ease;
+        }
+        .no-warehouses {
+            text-align: center;
+            color: #8b5a7a;
+            padding: 40px;
+        }
+        nav {
+            margin-bottom: 20px;
+        }
+        nav a {
+            margin-right: 15px;
+        }
+        .items-list {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #fff5f8;
+            border-radius: 8px;
+        }
+        .items-list h4 {
+            margin: 0 0 8px 0;
+            color: #e91e8c;
+            font-size: 14px;
+        }
+        .item {
+            display: inline-flex;
+            align-items: center;
+            background-color: #ffb6c1;
+            color: #8b5a7a;
+            padding: 4px 10px;
+            border-radius: 12px;
+            margin: 2px;
+            font-size: 13px;
+            gap: 5px;
+        }
+        .btn-remove-item {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 12px;
+            cursor: pointer;
+            padding: 0;
+            line-height: 1;
+        }
+        .btn-remove-item:hover {
+            background-color: #c0392b;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="{{ url_for('index') }}" class="btn btn-primary">Home</a>
+        <a href="{{ url_for('create_warehouse') }}" class="btn btn-success">
+            Create Warehouse
+        </a>
+    </nav>
+    {% block content %}{% endblock %}
+</body>
+</html>
