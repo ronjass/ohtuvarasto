@@ -90,12 +90,16 @@ def add_content(warehouse_id):
     return redirect(url_for('index'))
 
 
-@app.route('/remove/<int:warehouse_id>', methods=['POST'])
-def remove_content(warehouse_id):
-    if warehouse_id in manager.warehouses:
-        amount = parse_float(request.form.get('amount', 0))
-        if amount > 0:
-            manager.warehouses[warehouse_id]['varasto'].ota_varastosta(amount)
+@app.route('/remove/<int:warehouse_id>/<int:item_index>', methods=['POST'])
+def remove_content(warehouse_id, item_index):
+    if warehouse_id not in manager.warehouses:
+        return redirect(url_for('index'))
+    warehouse = manager.warehouses[warehouse_id]
+    items = warehouse['stored_items']
+    if 0 <= item_index < len(items):
+        item = items[item_index]
+        warehouse['varasto'].ota_varastosta(item['amount'])
+        items.pop(item_index)
     return redirect(url_for('index'))
 
 

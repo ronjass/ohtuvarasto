@@ -53,13 +53,18 @@ class TestApp(unittest.TestCase):
         self.app.post('/create', data={
             'name': 'Test',
             'capacity': '100',
-            'initial': '50'
+            'initial': '0'
         })
-        response = self.app.post('/remove/1', data={
-            'amount': '20'
-        }, follow_redirects=True)
+        # Add an item first
+        self.app.post('/add/1', data={
+            'item_name': 'Apples',
+            'amount': '50'
+        })
+        # Remove the item by index
+        response = self.app.post('/remove/1/0', follow_redirects=True)
         self.assertEqual(response.status_code, 200)
-        self.assertIn(b'30.0', response.data)
+        self.assertIn(b'0.0', response.data)
+        self.assertNotIn(b'Apples', response.data)
 
     def test_edit_warehouse_get(self):
         self.app.post('/create', data={
@@ -104,9 +109,7 @@ class TestApp(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_remove_from_nonexistent_warehouse(self):
-        response = self.app.post('/remove/999', data={
-            'amount': '10'
-        }, follow_redirects=True)
+        response = self.app.post('/remove/999/0', follow_redirects=True)
         self.assertEqual(response.status_code, 200)
 
     def test_delete_nonexistent_warehouse(self):
