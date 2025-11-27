@@ -71,6 +71,8 @@ def edit_warehouse(warehouse_id):
 
 
 def do_add_content(warehouse_id):
+    if warehouse_id not in manager.warehouses:
+        return
     amount = parse_float(request.form.get('amount', 0))
     item_name = request.form.get('item_name', '').strip()
     if amount <= 0:
